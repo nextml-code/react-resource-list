@@ -24,8 +24,3 @@ const SomeComponent = (props) => {
 };
 
 ```
-
-## Contribution
-
-Please help by submitting issues and pull requests here on github
-Read more on [codewell's webpage](https://codewell.github.io/contribution)
