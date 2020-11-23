@@ -6,8 +6,6 @@ import Loader from "./Loader";
 import defer from "@codewell/defer";
 
 const Wrapper = styled.div`
-  border-radius: var(--aiwizo-application-border-radius-primary);
-  border: 1px solid var(--aiwizo-application-primary-border-grey);
   display: flex;
   flex-direction: column;
 `;

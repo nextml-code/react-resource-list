@@ -6,7 +6,9 @@ import ComponentMap from "@codewell/component-map";
 
 const Wrapper = styled.div`
   font-family: var(--aiwizo-application-default-font);
-  border-top: 1px solid var(--aiwizo-application-primary-border-grey);
+  border: 1px solid var(--aiwizo-application-primary-border-grey);
+  border-radius: var(--aiwizo-application-border-radius-primary);
+  margin-bottom: var(--aiwizo-application-spacing-small);
 `;
 
 const ResourceHeader = styled.div`
@@ -35,8 +37,12 @@ const FileName = styled.div`
     `}
 `;
 
-const AnnotationsWrapper = styled.div`
+const AnnotationsWrapper = styled.div``;
+
+const AnnotationTitle = styled.div`
   padding: var(--aiwizo-application-spacing-small);
+  text-transform: uppercase;
+  font-size: var(--aiwizo-application-font-size-regular);
 `;
 
 const selectResource = (state, dispatch, resource, onResourceSelect) => () => {
@@ -49,7 +55,7 @@ const selectResource = (state, dispatch, resource, onResourceSelect) => () => {
 };
 
 const annotationAction = (func, resource) => (annotation) => {
-  func({annotation, resource});
+  func({ annotation, resource });
 };
 
 const Resource = ({
@@ -61,9 +67,8 @@ const Resource = ({
   onResourceSelect,
   ...resource
 }) => {
-  const {_id, filename, annotations} = resource
+  const { _id, filename, annotations } = resource;
   const isSelected = _id === state.selectedResource;
-
 
   return (
     <Wrapper key={_id} selected={isSelected}>
@@ -75,7 +80,9 @@ const Resource = ({
       </ResourceHeader>
       <RenderGate condition={isSelected}>
         <AnnotationsWrapper>
-          Annotations
+          <AnnotationTitle>Annotations</AnnotationTitle>
+          <div>
+
           <ComponentMap
             data={annotations}
             commonProperties={{
@@ -83,11 +90,12 @@ const Resource = ({
               dispatch,
               annotationOptions,
               onSelect: annotationAction(onAnnotationSelect, resource),
-              onDelete: annotationAction(onAnnotationDelete, resource)
+              onDelete: annotationAction(onAnnotationDelete, resource),
             }}
             component={Annotation}
             keyFunction={(props, _) => props._id}
           />
+          </div>
         </AnnotationsWrapper>
       </RenderGate>
     </Wrapper>

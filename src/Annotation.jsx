@@ -1,23 +1,45 @@
 import React from "react";
 import styled from "styled-components";
 import { Select } from "@aiwizo/react-form-components";
-import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEye,
+  faEyeSlash,
+  faTimesCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import defer from '@codewell/defer'
+import defer from "@codewell/defer";
+import { useState } from "react";
 
 const Wrapper = styled.div`
-  border-top: var(--aiwizo-application-border-light-grey);
-  padding-top: var(--aiwizo-application-spacing-small);
+  border-top: 1px solid var(--aiwizo-application-primary-border-grey);
+  padding: var(--aiwizo-application-spacing-small);
   display: flex;
   align-items: center;
+  :first-child {
+    border: none;
+  }
+`;
+
+const OptionsWrapper = styled.div`
+  margin-left: auto;
+  display: flex;
 `;
 
 const Remove = styled(FontAwesomeIcon)`
-  margin-left: auto;
+  margin-left: var(--aiwizo-application-spacing-small);
   color: var(--aiwizo-application-grey);
   cursor: pointer;
   :hover {
     color: var(--aiwizo-application-red);
+  }
+`;
+
+const Eye = styled(FontAwesomeIcon)`
+  margin-left: var(--aiwizo-application-spacing-small);
+  color: var(--aiwizo-application-grey);
+  cursor: pointer;
+  :hover {
+    color: var(--aiwizo-application-blue);
   }
 `;
 
@@ -32,9 +54,16 @@ const findLabelIndex = (options, label) => {
   return index;
 };
 
-const Annotation = ({ annotationOptions, onSelect, onDelete, ...annotation }) => {
+const Annotation = ({
+  annotationOptions,
+  onSelect,
+  onDelete,
+  mappingIndex,
+  ...annotation
+}) => {
+  const [visible, setVisibility] = useState(true);
   return (
-    <Wrapper>
+    <Wrapper mappingIndex={mappingIndex}>
       <Select
         options={annotationOptions}
         renderAs={(option, _) => {
@@ -44,11 +73,20 @@ const Annotation = ({ annotationOptions, onSelect, onDelete, ...annotation }) =>
             </div>
           );
         }}
-        onSelect={option => {onSelect({...annotation, label: option.label})}}
+        onSelect={(option) => {
+          onSelect({ ...annotation, label: option.label, visible });
+        }}
         defaultIndex={findLabelIndex(annotationOptions, annotation.label)}
       />
-
-      <Remove icon={faTimesCircle} onClick={defer(onDelete, annotation)}/>
+      <OptionsWrapper>
+        <Eye
+          icon={visible ? faEye : faEyeSlash}
+          onClick={() => {
+            setVisibility(!visible);
+          }}
+        />
+        <Remove icon={faTimesCircle} onClick={defer(onDelete, annotation)} />
+      </OptionsWrapper>
     </Wrapper>
   );
 };
