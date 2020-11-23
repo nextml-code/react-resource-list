@@ -1,16 +1,28 @@
-# @codewell/react-resource-list
+# React Resource List
 
 ## Installation
 
 ```
-npm install @codewell/react-resource-list
+npm install @aiwizo/react-resource-list
 ```
 
 ## Basic Usage
 
 ```JavaScript
-import /* FIXME: <nameOfModule> */ from '@codewell/react-resource-list';
-//FIXME: Write examples here
+import ResourceList from '@codewell/react-resource-list';
+
+const SomeComponent = (props) => {
+  return (
+    <ResourceList
+      url="http://some.url",
+      annotationOptions={[]}
+      onResourceSelect={(resource) => {...}}
+      onAnnotationSelect={({resource, annotation}) => {...}}
+      onAnnotationDelete={({resource, annotation}) => {...}}
+    >
+  );
+};
+
 ```
 
 ## Contribution
