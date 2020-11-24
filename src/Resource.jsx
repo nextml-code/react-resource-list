@@ -82,19 +82,18 @@ const Resource = ({
         <AnnotationsWrapper>
           <AnnotationTitle>Annotations</AnnotationTitle>
           <div>
-
-          <ComponentMap
-            data={annotations}
-            commonProperties={{
-              state,
-              dispatch,
-              annotationOptions,
-              onSelect: annotationAction(onAnnotationSelect, resource),
-              onDelete: annotationAction(onAnnotationDelete, resource),
-            }}
-            component={Annotation}
-            keyFunction={(props, _) => props._id}
-          />
+            <ComponentMap
+              data={annotations}
+              commonProperties={{
+                state,
+                dispatch,
+                annotationOptions,
+                onSelect: annotationAction(onAnnotationSelect, resource),
+                onDelete: annotationAction(onAnnotationDelete, resource),
+              }}
+              component={Annotation}
+              keyFunction={(props, _) => props._id}
+            />
           </div>
         </AnnotationsWrapper>
       </RenderGate>
