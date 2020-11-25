@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { Select } from "@aiwizo/react-form-components";
+import isDefined from "@codewell/is-defined";
+import isEmpty from "@codewell/is-empty";
+
 import {
   faEye,
   faEyeSlash,
@@ -15,8 +17,9 @@ const Wrapper = styled.div`
   padding: var(--aiwizo-application-spacing-small);
   display: flex;
   align-items: center;
-  :first-child {
-    border: none;
+
+  :hover {
+    background-color: var(--aiwizo-application-light-background-blue);
   }
 `;
 
@@ -29,6 +32,7 @@ const Remove = styled(FontAwesomeIcon)`
   margin-left: var(--aiwizo-application-spacing-small);
   color: var(--aiwizo-application-grey);
   cursor: pointer;
+  font-size: var(--aiwizo-application-font-size-regular);
   :hover {
     color: var(--aiwizo-application-red);
   }
@@ -38,20 +42,26 @@ const Eye = styled(FontAwesomeIcon)`
   margin-left: var(--aiwizo-application-spacing-small);
   color: var(--aiwizo-application-grey);
   cursor: pointer;
+  font-size: var(--aiwizo-application-font-size-regular);
   :hover {
     color: var(--aiwizo-application-blue);
   }
 `;
 
-const findLabelIndex = (options, label) => {
-  const index = options.reduce((result, currentValue, index) => {
-    if (currentValue.label === label) {
-      return index;
-    }
-    return result;
-  }, -1);
+const StyledLabel = styled.span`
+  font-size: var(--aiwizo-application-font-size-regular);
+`;
 
-  return index;
+const EmptyLabel = styled.span`
+  font-size: var(--aiwizo-application-font-size-regular);
+  color: var(--aiwizo-application-faded-text-grey);
+`;
+
+const Label = ({ label }) => {
+  if (!isDefined(label) || isEmpty(label)) {
+    return <EmptyLabel>Select a label...</EmptyLabel>;
+  }
+  return <StyledLabel>{label}</StyledLabel>;
 };
 
 const Annotation = ({
@@ -63,21 +73,11 @@ const Annotation = ({
 }) => {
   const [visible, setVisibility] = useState(true);
   return (
-    <Wrapper mappingIndex={mappingIndex}>
-      <Select
-        options={annotationOptions}
-        renderAs={(option, _) => {
-          return (
-            <div>
-              {option.label} <span>(prediction {option.prediction})</span>
-            </div>
-          );
-        }}
-        onSelect={(option) => {
-          onSelect({ ...annotation, label: option.label, visible });
-        }}
-        defaultIndex={findLabelIndex(annotationOptions, annotation.label)}
-      />
+    <Wrapper
+      mappingIndex={mappingIndex}
+      onClick={defer(onSelect, { ...annotation, visible })}
+    >
+      <Label label={annotation.label} />
       <OptionsWrapper>
         <Eye
           icon={visible ? faEye : faEyeSlash}

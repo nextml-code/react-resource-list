@@ -21,7 +21,13 @@ export default {
     },
     exports: "auto",
   },
-  external: ["react", "react-dom", /@babel\/runtime/, "styled-components"],
+  external: [
+    "react",
+    "react-dom",
+    /@babel\/runtime/,
+    "styled-components",
+    /@fortawesome\//,
+  ],
   plugins: [
     peerDepsExternal(),
     json(),
