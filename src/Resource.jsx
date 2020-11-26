@@ -61,7 +61,6 @@ const annotationAction = (func, resource) => (annotation) => {
 const Resource = ({
   state,
   dispatch,
-  annotationOptions,
   onAnnotationSelect,
   onAnnotationDelete,
   onResourceSelect,
@@ -87,7 +86,6 @@ const Resource = ({
               commonProperties={{
                 state,
                 dispatch,
-                annotationOptions,
                 onSelect: annotationAction(onAnnotationSelect, resource),
                 onDelete: annotationAction(onAnnotationDelete, resource),
               }}

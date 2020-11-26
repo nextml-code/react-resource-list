@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ComponentMap from "@codewell/component-map";
 import Resource from "./Resource";
 import Loader from "./Loader";
-import defer from "@codewell/defer";
 
 const Wrapper = styled.div`
   display: flex;
@@ -20,27 +19,17 @@ const Title = styled.span`
 `;
 
 const ReactResourceList = ({
-  title = "Resources",
-  url,
-  annotationOptions,
-  onAnnotationSelect,
+  resources,
   onResourceSelect,
+  onAnnotationSelect,
   onAnnotationDelete,
+  loading = false,
+  title = "Resources",
 }) => {
-  const [resources, setResources] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [state, dispatch] = useState({
     activeResource: null,
     activeAnnotation: null,
   });
-
-  useEffect(() => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((json) => json.resources)
-      .then(setResources)
-      .then(defer(setLoading, false));
-  }, [url]);
 
   return (
     <Wrapper>
@@ -52,7 +41,6 @@ const ReactResourceList = ({
         commonProperties={{
           state,
           dispatch,
-          annotationOptions,
           onAnnotationSelect,
           onAnnotationDelete,
           onResourceSelect,
