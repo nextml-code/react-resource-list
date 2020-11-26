@@ -64,13 +64,7 @@ const Label = ({ label }) => {
   return <StyledLabel>{label}</StyledLabel>;
 };
 
-const Annotation = ({
-  annotationOptions,
-  onSelect,
-  onDelete,
-  mappingIndex,
-  ...annotation
-}) => {
+const Annotation = ({ onSelect, onDelete, mappingIndex, ...annotation }) => {
   const [visible, setVisibility] = useState(true);
   return (
     <Wrapper

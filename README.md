@@ -11,15 +11,16 @@ npm install @aiwizo/react-resource-list
 ```JavaScript
 import ResourceList from '@codewell/react-resource-list';
 
+const resources = [/* resources... */];
+
 const SomeComponent = (props) => {
   return (
     <ResourceList
-      url="http://some.url",
-      annotationOptions={[]}
+      resources={resources}
       onResourceSelect={(resource) => {...}}
       onAnnotationSelect={({resource, annotation}) => {...}}
       onAnnotationDelete={({resource, annotation}) => {...}}
-    >
+    />
   );
 };
 
