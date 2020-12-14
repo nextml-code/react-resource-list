@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 
 const Title = styled.span`
   font-weight: 700;
-  padding: var(--aiwizo-application-spacing-small);
+  padding: var(--aiwizo-application-spacing-small) 0;
   font-family: var(--aiwizo-application-default-font);
   font-size: var(--aiwizo-application-font-size-big);
   display: flex;
