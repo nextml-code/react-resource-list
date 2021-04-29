@@ -46,7 +46,7 @@ const ReactResourceList = ({
           onResourceSelect,
         }}
         component={Resource}
-        keyFunction={(props, _) => props._id}
+        keyFunction={(props, _) => props.id}
       />
     </Wrapper>
   );

@@ -46,8 +46,8 @@ const AnnotationTitle = styled.div`
 `;
 
 const selectResource = (state, dispatch, resource, onResourceSelect) => () => {
-  if (state.selectedResource !== resource._id) {
-    dispatch({ ...state, selectedResource: resource._id });
+  if (state.selectedResource !== resource.id) {
+    dispatch({ ...state, selectedResource: resource.id });
   } else {
     dispatch({ ...state, selectedResource: null });
   }
@@ -66,11 +66,11 @@ const Resource = ({
   onResourceSelect,
   ...resource
 }) => {
-  const { _id, filename, annotations } = resource;
-  const isSelected = _id === state.selectedResource;
+  const { id, filename, annotations } = resource;
+  const isSelected = id === state.selectedResource;
 
   return (
-    <Wrapper key={_id} selected={isSelected}>
+    <Wrapper key={id} selected={isSelected}>
       <ResourceHeader
         selected={isSelected}
         onClick={selectResource(state, dispatch, resource, onResourceSelect)}
@@ -90,7 +90,7 @@ const Resource = ({
                 onDelete: annotationAction(onAnnotationDelete, resource),
               }}
               component={Annotation}
-              keyFunction={(props, _) => props._id}
+              keyFunction={(props, _) => props.id}
             />
           </div>
         </AnnotationsWrapper>
